@@ -1,0 +1,4 @@
+{
+  "frontend/src/App.tsx": "Main Valentine chat component with state management for messages, auto-scroll functionality, and three interactive reply buttons that append user messages immediately and bot responses after 700ms delay.",
+  "frontend/src/index.css": "Complete styling for the Valentine chat app including gradient background, centered card layout, message bubbles with bot/user styling, animated buttons, and responsive design matching the provided HTML/CSS exactly."
+}

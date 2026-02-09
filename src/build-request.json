@@ -1,0 +1,152 @@
+{
+  "kind": "build_request",
+  "title": "Shareable Valentine Chat Single-Page App",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-5",
+      "text": "Create a single-page Valentine-themed chat UI in React + TypeScript that recreates the provided HTML/CSS layout: a full-viewport background with a pink/red diagonal gradient, centered 360px-wide rounded white card with drop shadow, a solid pink header titled \"💘 Valentine App\", a scrollable chat area, and a bottom action area with three rounded buttons laid out with wrap and gaps.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2",
+          "msg-4"
+        ],
+        "quotes": [
+          "<!DOCTYPE html> ... <div class=\"header\">💘 Valentine App</div> ... background: linear-gradient(135deg, #ff4d6d, #ff758f); ... .app { width: 360px; ... border-radius: 20px; ... }"
+        ]
+      },
+      "acceptanceCriteria": [
+        "On load, the app displays a centered card UI matching the provided structure (header, chat panel, actions).",
+        "The page background uses a diagonal gradient visually consistent with #ff4d6d → #ff758f.",
+        "The card is constrained to ~360px width on desktop and remains usable on smaller screens (e.g., scales down with padding rather than overflowing).",
+        "Chat area is visibly scrollable with a fixed-height feel comparable to the provided 350px chat panel.",
+        "Buttons are pill-shaped and share the same primary pink styling as in the provided HTML."
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Implement the interactive chat behavior from the provided JavaScript: render an initial bot message \"Hey… I have something to tell you 💭\" on first load; provide three action buttons that when clicked append the corresponding user message immediately and then append the corresponding bot reply after ~700ms; after each new message, auto-scroll the chat panel to the bottom.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2",
+          "msg-4"
+        ],
+        "quotes": [
+          "addMessage(\"Hey… I have something to tell you 💭\", \"bot\");",
+          "setTimeout(() => { addMessage(\"I know… and honestly, that makes my heart feel warm 💞\", \"bot\"); }, 700);"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Initial message appears once when the page first renders.",
+        "Clicking \"I miss you 🥺\" appends the user message and then (after ~700ms) appends: \"I know… and honestly, that makes my heart feel warm 💞\".",
+        "Clicking \"I love you 💕\" appends the user message and then (after ~700ms) appends: \"That’s my favorite sentence ever 🥹💖\".",
+        "Clicking the Valentine question button appends the user message and then (after ~700ms) appends: \"I was waiting for you to ask… yes 💘 always yes.\".",
+        "After each appended message (user or bot), the chat scroll position moves to show the latest message at the bottom."
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Match message bubble styling and alignment from the provided HTML/CSS: bot messages appear left-aligned with a light pink bubble; user messages appear right-aligned with a solid pink bubble and white text; message bubbles use rounded corners, consistent padding, and a max width around 75% of the chat panel.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2",
+          "msg-4"
+        ],
+        "quotes": [
+          ".msg { max-width: 75%; ... border-radius: 15px; }",
+          ".bot { background: #ffe5ec; }",
+          ".user { background: #ff4d6d; color: white; margin-left: auto; }"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Bot messages visually use a light pink background distinct from the chat panel background.",
+        "User messages visually use a strong pink background with white text and are aligned to the right.",
+        "Message bubbles never exceed ~75% of the chat panel width."
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "Ensure the app is shareable as a simple link: the Valentine chat experience must be available at the app root with no required sign-in and no setup steps.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ],
+        "quotes": [
+          "Yesss I wait to share in message threw a link"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Navigating to the root of the deployed app shows the Valentine chat UI immediately.",
+        "No authentication prompts are shown and no user input is required to start using the chat buttons."
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "text": "Use a coherent, cute/romantic Valentine visual theme across the page (colors, typography, spacing, button states) consistent with the provided design; avoid introducing a blue/purple palette.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2",
+          "msg-4"
+        ],
+        "quotes": [
+          "background: linear-gradient(135deg, #ff4d6d, #ff758f);",
+          "font-family: 'Segoe UI', sans-serif;"
+        ]
+      },
+      "acceptanceCriteria": [
+        "UI styling is consistent across header, chat panel, message bubbles, and buttons.",
+        "Hover/active/focus states for buttons fit the Valentine theme and remain readable.",
+        "No blue/purple-dominant palette is introduced."
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "text": "Set the third action button label to exactly \"Driti Will you be my Valentine? 💌\" as shown in the user-provided variant.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "<button onclick=\"reply('date')\">Driti Will you be my Valentine? 💌</button>"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The third button’s visible text reads: \"Driti Will you be my Valentine? 💌\".",
+        "Clicking the third button still appends the user chat message \"Will you be my Valentine? 💌\" and then the provided bot reply after ~700ms (unless the user message is intentionally updated to match the button label)."
+      ]
+    }
+  ],
+  "constraints": [
+    "Do not edit any files under frontend/src/components/ui (Shadcn UI components are read-only).",
+    "Do not modify the immutable hook/entry files listed in SYSTEM_CONTEXT.frontend.immutablePaths.",
+    "Backend must remain a single Motoko actor if any backend changes are later introduced (no multi-canister architecture).",
+    "Use English for all user-facing text."
+  ],
+  "nonGoals": [
+    "Internet Identity or any other login/authentication flow.",
+    "Persisting chat history across reloads or across users.",
+    "Real-time/multi-user chat or messaging.",
+    "External API integrations or LLM-powered responses.",
+    "Custom backend storage or database integration."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
+  }
+}

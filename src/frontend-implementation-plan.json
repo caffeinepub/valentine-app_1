@@ -1,0 +1,115 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Shareable Valentine Chat Single-Page App (React + TypeScript)",
+  "requirements": [
+    {
+      "id": "REQ-5",
+      "summary": "Build the Valentine-themed single-page layout: full-viewport gradient background, centered 360px card with header, scrollable chat panel, and wrapped action buttons.",
+      "acceptanceCriteria": [
+        "On load, the app displays a centered card UI matching the provided structure (header, chat panel, actions).",
+        "The page background uses a diagonal gradient visually consistent with #ff4d6d → #ff758f.",
+        "The card is constrained to ~360px width on desktop and remains usable on smaller screens (e.g., scales down with padding rather than overflowing).",
+        "Chat area is visibly scrollable with a fixed-height feel comparable to the provided 350px chat panel.",
+        "Buttons are pill-shaped and share the same primary pink styling as in the provided HTML."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "create",
+          "description": "Create the root Valentine chat page UI structure (full-page background container, centered card, header title, chat panel region, and action button region) rendered at the app root."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "create",
+          "description": "Add global styles to match the provided HTML/CSS layout (diagonal pink/red gradient background, centered 360px card with rounded corners + shadow, header styling, scrollable chat panel sizing, and pill button layout with wrap/gaps)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Implement chat interactions: initial bot message, action buttons that append user + delayed bot replies, and auto-scroll to newest message.",
+      "acceptanceCriteria": [
+        "Initial message appears once when the page first renders.",
+        "Clicking \"I miss you 🥺\" appends the user message and then (after ~700ms) appends: \"I know… and honestly, that makes my heart feel warm 💞\".",
+        "Clicking \"I love you 💕\" appends the user message and then (after ~700ms) appends: \"That’s my favorite sentence ever 🥹💖\".",
+        "Clicking the Valentine question button appends the user message and then (after ~700ms) appends: \"I was waiting for you to ask… yes 💘 always yes.\".",
+        "After each appended message (user or bot), the chat scroll position moves to show the latest message at the bottom."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Implement client-side chat state and behavior: render initial bot message on first mount, map three action buttons to (1) immediate user message append and (2) ~700ms delayed bot reply append, plus auto-scroll the chat panel to the bottom after each append via refs/effects."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Match message bubble alignment and styling for bot vs user messages (left light-pink vs right solid-pink), with consistent padding, rounded corners, and ~75% max width.",
+      "acceptanceCriteria": [
+        "Bot messages visually use a light pink background distinct from the chat panel background.",
+        "User messages visually use a strong pink background with white text and are aligned to the right.",
+        "Message bubbles never exceed ~75% of the chat panel width."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Render message list with sender-based classnames/structure enabling left/right alignment and distinct bubble styling for bot vs user."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Add message bubble styles to match the provided HTML/CSS (max-width ~75%, rounded corners, padding; bot: light pink background; user: solid pink background with white text and right alignment)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Ensure the experience is shareable via a simple link: show the Valentine chat UI at the app root with no sign-in and no setup.",
+      "acceptanceCriteria": [
+        "Navigating to the root of the deployed app shows the Valentine chat UI immediately.",
+        "No authentication prompts are shown and no user input is required to start using the chat buttons."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Ensure the app root renders the Valentine chat UI immediately and does not display or trigger any authentication UI/flows (no login buttons, prompts, or required user input before using chat actions)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "summary": "Apply a coherent cute/romantic Valentine theme across typography, spacing, colors, and button states; avoid blue/purple palettes.",
+      "acceptanceCriteria": [
+        "UI styling is consistent across header, chat panel, message bubbles, and buttons.",
+        "Hover/active/focus states for buttons fit the Valentine theme and remain readable.",
+        "No blue/purple-dominant palette is introduced."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Refine global theme styling (font family similar to Segoe UI, consistent spacing, romantic pink/red palette, and readable hover/active/focus button states) while avoiding any blue/purple-dominant colors."
+        }
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "summary": "Set the third action button label to exactly \"Driti Will you be my Valentine? 💌\" while preserving the specified chat messages/replies on click.",
+      "acceptanceCriteria": [
+        "The third button’s visible text reads: \"Driti Will you be my Valentine? 💌\".",
+        "Clicking the third button still appends the user chat message \"Will you be my Valentine? 💌\" and then the provided bot reply after ~700ms (unless the user message is intentionally updated to match the button label)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Set the third action button label text exactly to \"Driti Will you be my Valentine? 💌\" while keeping the click behavior to append the intended user message and the provided delayed bot reply."
+        }
+      ]
+    }
+  ]
+}
